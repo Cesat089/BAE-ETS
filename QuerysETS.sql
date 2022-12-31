@@ -42,7 +42,10 @@ and SupportedLanguages not like '%French%'
 
 --Lista el nombre del juego, su precio inicial, su precio final y la diferencia entre ambos en una nueva columna.
 
-
+select concat(Nombre, ' | Precio Inicial: ',
+PriceInitial, ' | Precio Final: ', PriceFinal,
+' | Diferencia de precio: ', (PriceInitial - PriceFinal) ) 
+from juegos
 
 --¿Cuántos juegos hay del siglo pasado?
 
