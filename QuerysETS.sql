@@ -36,7 +36,9 @@ go
 
 --Lista todos aquellos juegos que puedan ser jugados en Español pero no en Frances.
 
-
+select * from juegos
+where SupportedLanguages like '%Spanish%'
+and SupportedLanguages not like '%French%'
 
 --Lista el nombre del juego, su precio inicial, su precio final y la diferencia entre ambos en una nueva columna.
 
