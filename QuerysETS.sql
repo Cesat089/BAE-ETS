@@ -49,6 +49,9 @@ from juegos
 
 --¿Cuántos juegos hay del siglo pasado?
 
+select * from juegos
 
+select * from juegos
+where ReleaseDate  not like '[2___]'
 
 --Devuelve todos los juegos que terminen o en N o en O.
