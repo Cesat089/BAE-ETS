@@ -55,3 +55,5 @@ select * from juegos
 where ReleaseDate  not like '[2___]'
 
 --Devuelve todos los juegos que terminen o en N o en O.
+
+select * from juegos where Nombre like '%n' or Nombre like '%o'
