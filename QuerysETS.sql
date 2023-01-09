@@ -7,7 +7,7 @@ select Nombre,ReleaseDate,RequiredAge,DemoCount,DeveloperCount,DLCCount,Metacrit
 PublisherCount,AchievementCount,ControllerSupport,IsFree,FreeVerAvail,PlatformWindows,
 PlatformLinux,PlatformMac,Genre,PriceCurrency,PriceInitial,PriceFinal,ShortDescrip,
 HeaderImage,SupportedLanguages,Category,Website
-from juegos;
+from juegos
 go
 
 --Lista todos los diferentes géneros, eliminando duplicados.
@@ -57,3 +57,31 @@ where ReleaseDate  not like '[2___]'
 --Devuelve todos los juegos que terminen o en N o en O.
 
 select * from juegos where Nombre like '%n' or Nombre like '%o'
+
+--Devuelve todos los juegos que empiecen por A y que se puedan jugar con mando.
+
+select *
+from juegos
+where Nombre like 'A%' and ControllerSupport='True';
+go
+
+--Devuelve todos aquellos juegos que estén entre el 2000 y el 2010.
+
+select *
+from juegos
+where ReleaseDate between '2000' and '2010';
+go
+
+--Devuelve todos los juegos que sean de la saga Final Fantasy.
+
+select *
+from juegos
+where Nombre like '%final%fantasy%';
+go
+
+--Devuelve todos los juegos que sean de deportes y haya trabajado más de 3 desarrolladores.
+
+select *
+from juegos
+where Genre like '%sports%' and DeveloperCount > 3;
+go
