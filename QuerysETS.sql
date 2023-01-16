@@ -58,6 +58,8 @@ where ReleaseDate  not like '[2___]'
 
 select * from juegos where Nombre like '%n' or Nombre like '%o'
 
+--Sprint 2
+
 --Devuelve todos los juegos que empiecen por A y que se puedan jugar con mando.
 
 select *
@@ -85,3 +87,29 @@ select *
 from juegos
 where Genre like '%sports%' and DeveloperCount > 3;
 go
+
+--¿Cuantos juegos hay asociados a cada categoria?
+
+select COUNT(*) as Categorias from juegos
+group by Category 
+
+--¿Cuántos juegos se han sacado en cada año?
+
+select ReleaseDate as FechaLanzamiento, COUNT(*) as 'Cantidad Juegos' from juegos
+group by ReleaseDate
+
+--En base a la consulta anterior, devuelve aquellos años en los que la media de puntuación esté entre un 6 y un 8
+
+select ReleaseDate as FechaLanzamiento, COUNT(*) as 'Cantidad Juegos' from juegos
+group by ReleaseDate
+having AVG(Metacritic) between 6 and 8
+
+select * from juegos
+
+--¿Cuál es la máxima, mínima y puntuación media (AVG) por género?
+
+select Category as Categoría,MAX(Metacritic) as PuntuacionMAX, 
+MIN(Metacritic) as PuntuacionMIN,
+AVG(Metacritic) as PuntuacionMedia 
+from juegos
+group by Category
