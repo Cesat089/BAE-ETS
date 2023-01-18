@@ -113,3 +113,29 @@ MIN(Metacritic) as PuntuacionMIN,
 AVG(Metacritic) as PuntuacionMedia 
 from juegos
 group by Category
+
+--Sprint 3
+
+--Usando LIMIT, devuelve el top 10 de juegos con mayor puntuación del 2012.
+
+select TOP 10 Nombre, ReleaseDate, Metacritic
+from juegos
+where ReleaseDate = '2012'
+order by Metacritic desc;
+go
+
+--Usando LIMIT, devuelve el top 10 de juegos más nuevos de género single player.
+
+select TOP 10 Nombre, ReleaseDate, Category
+from juegos
+where Category = ' Single Player'
+order by ReleaseDate desc;
+go
+
+--Devuelve la media de nota de todos aquellos juegos que sean para mayores de 18 años.
+
+select RequiredAge, AVG(Metacritic) as 'Nota Media'
+from juegos
+where RequiredAge = 18
+group by RequiredAge
+go
