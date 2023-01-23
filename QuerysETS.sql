@@ -137,7 +137,7 @@ go
 select RequiredAge, AVG(Metacritic) as 'Nota Media'
 from juegos
 where RequiredAge = 18
-group by RequiredAge
+group by RequiredAge;
 go
 
 --¿Cuántos juegos hay asociados a cada tipo (mayor de 18, de 17…)?
@@ -154,3 +154,105 @@ having COUNT(*) > 300
 -- Devuelve todos los juegos que estén para Mac pero no para Windows.
 
 select * from juegos where PlatformMac = 'true' and PlatformWindows = 'false'
+
+--Sprint 4
+
+--Devuelve todos los juegos donde su precio final sea mayor a su precio inicial.
+
+select Nombre, PriceInitial, PriceFinal
+from juegos
+where PriceInitial < PriceFinal;
+go
+
+--Devuelve todos los juegos que no estén valorados en dólares.
+
+select Nombre, PriceCurrency
+from juegos
+where PriceCurrency not like 'USD';
+go
+
+--Devuelve todos los juegos que tengan una mayor nota que 0, pero que hayan suspendido.
+
+select Nombre, Metacritic
+from juegos
+where Metacritic > 0 and Metacritic < 50;
+go
+
+--Devuelve el top 15 de juegos con mayor número de DLC.
+
+select TOP 15 Nombre, DLCCount
+from juegos
+order by DLCCount desc;
+go
+
+--Devuelve la información de los juegos que sólo se puedan jugar en Inglés.
+
+select *
+from juegos
+where SupportedLanguages = 'English';
+go
+
+--Devuelve el nombre(en minúscula) y la web (en mayúscula) de los juegos de acción o casuales.
+
+select Lower(Nombre) as 'Nombre (minúsculas)', Upper(Website) as 'Web (mayúsculas)', Genre
+from juegos
+where Genre like '%Actio%' or Genre like '%Casual%';
+go
+
+--¿Cuál es el juego indie con mayor nota?
+
+select TOP 1 Nombre, Genre, Metacritic
+from juegos
+where Genre = ' Indie'
+order by Metacritic desc;
+go
+
+--¿Y con menor nota?
+
+select TOP 1 Nombre, Genre, Metacritic
+from juegos
+where Genre = ' Indie'
+order by Metacritic asc;
+go
+
+--Devuelve toda la información del juego con menor nota, siempre que sea mayor a cero.
+
+select TOP 1 WITH TIES *
+from juegos
+where Metacritic > 0
+order by Metacritic asc;
+go
+
+--Devuelve aquellos juegos que tengan mayor nota que la media.
+
+select Nombre, Metacritic
+from juegos 
+where metacritic > (select Avg(Metacritic)
+					from juegos
+					where Metacritic != 0);
+go
+
+--Devuelve el juego con mayor nota del año 2008.
+
+select TOP 1 WITH TIES Nombre, Metacritic, ReleaseDate
+from juegos
+where ReleaseDate = '2008'
+order by Metacritic desc;
+go
+
+--Devuelve toda la información de los juegos que valgan más que la media.
+
+select *
+from juegos 
+where PriceFinal > (select Avg(PriceFinal)
+					from juegos
+					where PriceFinal != 0);
+go
+
+--Devuelve toda la información de los juegos de Linux que tengan el mayor número de logros (achivements).
+
+select *
+from juegos 
+where PlatformLinux = 'True' and AchievementCount = (select Max(AchievementCount)
+													from juegos);
+go
