@@ -139,3 +139,18 @@ from juegos
 where RequiredAge = 18
 group by RequiredAge
 go
+
+--¿Cuántos juegos hay asociados a cada tipo (mayor de 18, de 17…)?
+
+select COUNT(*), RequiredAge from juegos 
+group by RequiredAge order by RequiredAge desc
+
+-- Devuelve todos aquellos años en los que haya menos de 300 juegos.
+
+select COUNT(*)as Cantidad, ReleaseDate as Anio 
+from juegos group by ReleaseDate
+having COUNT(*) > 300
+
+-- Devuelve todos los juegos que estén para Mac pero no para Windows.
+
+select * from juegos where PlatformMac = 'true' and PlatformWindows = 'false'
