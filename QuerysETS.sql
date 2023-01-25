@@ -254,5 +254,6 @@ go
 select *
 from juegos 
 where PlatformLinux = 'True' and AchievementCount = (select Max(AchievementCount)
-													from juegos);
+													from juegos
+													where PlatformLinux = 'True');
 go
